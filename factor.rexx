@@ -3,9 +3,122 @@
 say "What are the prime factors of 819?"
 say PrimeFactor(819)
 
+exit
+
 PrimeFactor:
   parse ARG n
+  factors. = "Undefined"
+  do m = 2 by 1 while (n > m)
+    say "is "n" / "m" == 0?"
+    if (n // m == 0) then do
+      say "dividing "n" by "m
+      say ArrayPush(factors.,m)
+      n = n / m
+      say "n now = "n
+    end
+    pull x
+  end
   say n
-  /* bad artithmetic conversion on the line below */
-  say n+1
 return n
+
+/* pretty print of an array */
+ArrayPrint:
+  parse arg arr
+  i = 0
+  do until (compare(arr.i, "Undefined") == 0)
+    if (i == 0) then do
+      str = arr.i
+    end
+    else do
+      str = str", "arr.i
+    end
+    i = i + 1
+  end
+  return str
+
+/* calulcates the number of elements in an array */
+/* returns the array length */
+ArrayLength:
+  parse arg arr
+  i = 0
+  do until (compare(arr.i, "Undefined") == 0)
+    i = i + 1
+  end
+  return i
+
+/* remove an element from the end of an array */
+/* returns the removed element */
+ArrayPop:
+  parse arg arr
+  i = 0
+  do until (compare(arr.i, "Undefined") == 0)
+      i = i + 1
+  end
+  i = i - 1
+  element = arr.i
+  arr.i = "Undefined"
+  return element
+
+/* add an element to the end of an array */
+/* returns new array length */
+ArrayPush:
+  parse arg arr,element
+  i = 0
+  say arr.i
+  if (compare(arr.0, "Undefined") > 0) then do
+    do until (compare(arr.i, "Undefined") == 0)
+      i = i + 1
+    end
+  end
+  arr.i = element
+  return i + 1
+
+/* remove an element from the beginning of an array */
+/* returns the removed element */
+ArrayShift:
+  parse arg arr
+  element = arr.0
+  i = 0
+  do until (compare(arr.i, "Undefined") == 0)
+    j = i + 1
+    arr.i = arr.j
+    i = j
+  end
+  return element
+
+/* add an element to the beginning of an array */
+/* returns the new array length */
+ArrayUnshift:
+  parse arg arr,element
+  len = ArrayLength(arr.)
+  do i = len to 1 by -1
+    j = i - 1
+    arr.i = arr.j
+  end
+  arr.0 = element
+  return len + 1
+
+ArrayUnshift2:
+  parse arg arr,element
+  /* add element */
+  hold = arr.0
+  arr.0 = element
+  /* shift elements */  
+  i = 1
+  do until (compare(hold, "Undefined") == 0) 
+    tmp = arr.i
+    arr.i = hold
+    hold = tmp
+    i = i + 1
+  end
+  return i
+
+/* splits a variable using delimiter */
+/* returns array of elements */
+ArraySplit:
+  parse arg input,delimiter
+  arr. = "Undefined"
+  return arr.
+
+ArrayJoin:
+ArrayReverse:

@@ -1,7 +1,14 @@
 #!/usr/bin/env rexx
 
+/* tests */
+
+/* ArrayPush doesn't work when given an empty array */
+
 arr.  = "Undefined"
-arr.0 = "one"
+say ArrayPush(arr.,"one")
+say arr.0
+say ArrayPrint(arr.)
+
 arr.1 = "two"
 arr.2 = "three"
 arr.3 = "four"
@@ -58,7 +65,7 @@ exit
 ArrayPrint:
   parse arg arr
   i = 0
-  do until(compare(arr.i, "Undefined") == 0)
+  do until (compare(arr.i, "Undefined") == 0)
     if (i == 0) then do
       str = arr.i
     end
@@ -85,7 +92,7 @@ ArrayPop:
   parse arg arr
   i = 0
   do until (compare(arr.i, "Undefined") == 0)
-    i = i + 1
+      i = i + 1
   end
   i = i - 1
   element = arr.i
@@ -97,8 +104,10 @@ ArrayPop:
 ArrayPush:
   parse arg arr,element
   i = 0
-  do until (compare(arr.i, "Undefined") == 0)
-    i = i + 1
+  if (compare(arr.0, "Undefined") > 0) then do
+    do until (compare(arr.i, "Undefined") == 0)
+      i = i + 1
+    end
   end
   arr.i = element
   return i + 1
@@ -142,3 +151,13 @@ ArrayUnshift2:
     i = i + 1
   end
   return i
+
+/* splits a variable using delimiter */
+/* returns array of elements */
+ArraySplit:
+  parse arg input,delimiter
+  arr. = "Undefined"
+  return arr.
+
+ArrayJoin:
+ArrayReverse:
