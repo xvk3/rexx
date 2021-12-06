@@ -1,5 +1,16 @@
 #!/usr/bin/env rexx
 
+test. = "Undefined"
+test  = "test"
+element = 23
+call ArrayPush2 test.,element
+say test.0 /* Undefined */
+say arr.0  /* 23 ... */
+say ArrayPush2(test.,element)
+say test.0
+say arr.0
+
+exit
 say "What are the prime factors of 819?"
 say PrimeFactor(819)
 
@@ -13,6 +24,8 @@ PrimeFactor:
     if (n // m == 0) then do
       say "dividing "n" by "m
       say ArrayPush(factors.,m)
+      /* says "factors.0 = ARR.0" */
+      say "factors.0 = "factors.0
       n = n / m
       say "n now = "n
     end
@@ -46,79 +59,31 @@ ArrayLength:
   end
   return i
 
-/* remove an element from the end of an array */
-/* returns the removed element */
-ArrayPop:
-  parse arg arr
-  i = 0
-  do until (compare(arr.i, "Undefined") == 0)
-      i = i + 1
-  end
-  i = i - 1
-  element = arr.i
-  arr.i = "Undefined"
-  return element
-
 /* add an element to the end of an array */
 /* returns new array length */
 ArrayPush:
   parse arg arr,element
   i = 0
-  say arr.i
-  if (compare(arr.0, "Undefined") > 0) then do
+  say "ArrayPush:arr.0 = "arr.i
+  if (compare(arr.0, upper("arr.0")) > 0) then do
     do until (compare(arr.i, "Undefined") == 0)
       i = i + 1
     end
   end
+  say "setting arr."i" to "element
   arr.i = element
   return i + 1
 
-/* remove an element from the beginning of an array */
-/* returns the removed element */
-ArrayShift:
-  parse arg arr
-  element = arr.0
-  i = 0
-  do until (compare(arr.i, "Undefined") == 0)
-    j = i + 1
-    arr.i = arr.j
-    i = j
-  end
-  return element
-
-/* add an element to the beginning of an array */
-/* returns the new array length */
-ArrayUnshift:
+ArrayPush2:
   parse arg arr,element
-  len = ArrayLength(arr.)
-  do i = len to 1 by -1
-    j = i - 1
-    arr.i = arr.j
-  end
+  say arr
   arr.0 = element
-  return len + 1
+  say element
+  return 1
 
-ArrayUnshift2:
-  parse arg arr,element
-  /* add element */
-  hold = arr.0
-  arr.0 = element
-  /* shift elements */  
-  i = 1
-  do until (compare(hold, "Undefined") == 0) 
-    tmp = arr.i
-    arr.i = hold
-    hold = tmp
-    i = i + 1
-  end
-  return i
 
-/* splits a variable using delimiter */
-/* returns array of elements */
-ArraySplit:
-  parse arg input,delimiter
-  arr. = "Undefined"
-  return arr.
 
-ArrayJoin:
-ArrayReverse:
+
+
+
+
