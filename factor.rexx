@@ -1,20 +1,58 @@
 #!/usr/bin/env rexx
 
+/* procedure tests */
+
+
+a = 5
+say a
+call Proc a
+say a
+call NonProc a
+say a
+call ProcA a
+say a
+
+call Skip /* ew */
+
+Proc: procedure
+  parse arg q
+  q = 10
+  a = q
+  return
+
+NonProc:
+  parse arg q
+  q = 20
+  a = q
+  return
+
+ProcA: procedure expose a
+  parse arg q
+  q = 30
+  return
+
+Skip:
+
 /* problem is: there are no arrays in rexx it's just defining variables */
 /* passing an array to a function doesn't pass a pointer to it - it passes the value of the parameter */
 /* it also seems that I can't copy arrays in an interpret command "interpret arr.' = name.'" */
+/* is "parse arg x" the same as "arg x" ??? */
 
 test. = "Undefined"
 name = "test"
 e = "new value"
 
-test.0 = "hello"
 
 say "test.0 before ArrayPush = "test.0
-say "test.1 before ArrayPush = "test.1
+say "call ArrayPush "name","e
 call ArrayPush name,e
 say "test.0 after  ArrayPush = "test.0
+say "call ArrayPush "name",hello two"
+call ArrayPush name,"hello two"
+say "test.0 after  ArrayPush = "test.0
 say "test.1 after  ArrayPush = "test.1
+
+/* can't seem to get ArrayPush to even read *.0 correctly after a previous call */
 
 exit
 
@@ -23,29 +61,32 @@ exit
 ArrayPush:
   parse arg n,e
   /* handle empty array */
-  interpret zero" = "n".0"
-  if (compare(zero, "Undefined") == 0) then do
+  interpret zeroth" = "n".0"
+  /* say zeroth <- this shouldn't be Undefined the second time round */
+  if (compare(zeroth, "Undefined") == 0) then do
     interpret n".0 = "e
-    return 1
   end
-  /* attempt to create local copy of array using n (array name) */
-  tmp. = "Undefined"
-  i = 0
-  /*interpret tmp.i" = "n".0"*/
-  do until (compare(tmp.i, "Undefined") == 0)
-    interpret tmp.i" = "n".i"
-    say "just did tmp."i" = "n"."i
-    i = i + 1
+  else do
+    /* attempt to create local copy of array using n (array name) */
+    tmp. = "Undefined"
+    i = 0
+    interpret tmp.i" = "n".0"
+    say tmp.i
+    do until (compare(tmp.i, "Undefined") == 0)
+      interpret tmp.i" = "n"."i
+      say "just did tmp."i" = "n"."i
+      i = i + 1
+    end
+    tmp.i = e  
+    say "just did tmp."i" = "e
+    say "tmp."i" = "tmp.i
+    interpret n"."i" = "e
+    say "test"
+    say n".1"
+    interpret n". = "tmp.
   end
-  tmp.i = e  
-  say "just did tmp."i" = "e
-  say "tmp."i" = "tmp.i
-  interpret n"."i" = "e
-  interpret t" = "n".1"
-  say t
-  say n".1"
-  /*interpret n". = "tmp.*/
-  return i
+  return
+  
 
 element = 23
 interpret name".0 = 'hi'"
