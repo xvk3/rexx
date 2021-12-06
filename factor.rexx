@@ -1,8 +1,24 @@
 #!/usr/bin/env rexx
 
+/* one solution to the problem with being unable to access an array in a function is to always use "arr" in
+functions and simply prefix the "call Array*" with "arr. = input." */
+/* regina-rexx is classic rexx and doesn't support "arr. = input." */
+/* ooRexx does support it */
+
+list.1 = 0
+list.2 = 0 
+list.3 = 0 
+
+/* Assigning new values to the array*/ 
+list.1 = 10 
+list.3 = 30 
+listnew. = list. 
+
+say listnew.1 
+say listnew.2 
+say listnew.3 
+
 /* procedure tests */
-
-
 a = 5
 say a
 call Proc a
@@ -37,6 +53,8 @@ Skip:
 /* passing an array to a function doesn't pass a pointer to it - it passes the value of the parameter */
 /* it also seems that I can't copy arrays in an interpret command "interpret arr.' = name.'" */
 /* is "parse arg x" the same as "arg x" ??? */
+  /* no "arg" = "parse upper arg" */
+  /* I should be using "parse caseless arg" */
 
 test. = "Undefined"
 name = "test"
